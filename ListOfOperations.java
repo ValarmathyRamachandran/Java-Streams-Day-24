@@ -1,10 +1,12 @@
 package bridgelabzAddressBook;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ListOfOperations<listContactInfo> {
 	String addressBookName;
@@ -14,6 +16,30 @@ public class ListOfOperations<listContactInfo> {
 	public String FirstName;String LastName;String Address;String State;String Zip;
 	String PhoneNumber;
 	String Email;
+
+	public ListOfOperations(String FirstName, String LastName, String State, String PhoneNumber) {
+		super();
+		this.FirstName = FirstName;
+		this.LastName = LastName;
+		this.State = State;
+		this.PhoneNumber = PhoneNumber;
+	}
+	public ListOfOperations() {
+		// TODO Auto-generated constructor stub
+	}
+	public String getFirstName() {
+		return FirstName;
+	}
+	public String getLastName() {
+		return LastName;
+	}
+	public String getState() {
+		return State;
+	}
+	public String getPhoneNumber() {
+		return PhoneNumber;
+	}
+	
 	public Map<String, ArrayList<listContactInfo>> innerMap;
 	
 	public void showAddressBook(int mainMenuChoice) {
@@ -79,7 +105,7 @@ public class ListOfOperations<listContactInfo> {
 		}
 	}
 	public void addContactInfo() {
-		ListOfOperations listOfOperations = new ListOfOperations();
+		ListOfOperations listOfOperations = new ListOfOperations(FirstName, LastName, State, PhoneNumber);
 		Map<String, ArrayList<listContactInfo>> innerMap = new HashMap<String, ArrayList<listContactInfo>>();
 		System.out.println("Enter the First Name:");
 		listOfOperations.FirstName = scan.next();
@@ -118,15 +144,33 @@ public class ListOfOperations<listContactInfo> {
 	}
 	
 	public void searchCity() {
-		ArrayList<ListOfOperations> listContactInfo = new ArrayList<ListOfOperations>();
+		boolean isExists=false;
 		System.out.println("Please enter the City Name to Search");
 		String City = scan.next();
-		
-		ArrayList<ListOfOperations> contactInfo = (ArrayList<ListOfOperations>) listContactInfo.stream()
-		.filter(e -> e.State.equalsIgnoreCase(City))
-		 .collect(Collectors.toList()); 
-		
-			System.out.println(City);
-		
+		Stream<ListOfOperations> lstFilteredItems= listContactInfo.stream()
+				.filter(s->s.State.equals(City));
+		var filteredList=lstFilteredItems.toList();
+		isExists=filteredList.size()>0?true:false;
+		if(!isExists) {
+			System.out.println("Entered City Name doesnot Match,Please Entry Valid City Name");
+		}	
+		else
+		{
+		System.out.println("Search result for List of Persons in a City or State " +City +"\nCount: " +filteredList.size());
+		}
+		filteredList.forEach((k) -> {
+			System.out.println("First Name of the Person: "+k.FirstName + " ");
+			});	
+	}
+	
+	public void sortCity() {
+		System.out.println("----Sorted List----");
+		Arrays.sort(listContactInfo.toArray());
+
+		int i=0;
+		for(ListOfOperations temp: listContactInfo){
+		   System.out.println("City Name " + ++i + " : " + temp.getState() + 
+			", First Name : " + temp.getFirstName());
+		}
 	}
 }
