@@ -22,7 +22,7 @@ import java.util.Scanner;
 			System.out.println("6.Print out information of your contacts.");
 			System.out.println("7.Quit.");
 			System.out.println("8.Go to Main Menu");
-			System.out.println("0. Search By City or State Name \n");
+			System.out.println("0.Search By City or State Name \n");
 			System.out.println("Enter your menu choice:");
 			
 	    }
@@ -77,6 +77,7 @@ import java.util.Scanner;
 	    				break;
 	    			case 0:
 						listOfoperations.searchCity();
+						listOfoperations.sortCity();
 						menu();
 						choice = scan.nextInt();
 						break;
