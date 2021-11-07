@@ -22,6 +22,7 @@ import java.util.Scanner;
 			System.out.println("6.Print out information of your contacts.");
 			System.out.println("7.Quit.");
 			System.out.println("8.Go to Main Menu");
+			System.out.println("9.Print Sorted list By City or State Name");
 			System.out.println("0.Search By City or State Name \n");
 			System.out.println("Enter your menu choice:");
 			
@@ -49,10 +50,10 @@ import java.util.Scanner;
 					menu();
 					int choice=scan.nextInt();
 	    		
-	    		while (choice<=8) {
+	    		while (choice<=9) {
 	    			switch(choice) {
-	    			case 3:
-	    				listOfoperations.addContactInfo();
+	    			case 3://check duplicate and allow only when it is unique to add contact
+	    				listOfoperations.checkDuplicateAndAdd();
 	    				menu();
 						choice = scan.nextInt();
 	    				break;
@@ -77,15 +78,20 @@ import java.util.Scanner;
 	    				break;
 	    			case 0:
 						listOfoperations.searchCity();
-						listOfoperations.sortCity();
 						menu();
 						choice = scan.nextInt();
 						break;
+	    			case 9:
+	    				listOfoperations.sortCity();
+	    				menu();
+						choice = scan.nextInt();		
+	    				break;
 	    			case 8:
 	    				mainMenu();
 	    				mainMenuChoice=scan.nextInt();
-	    				choice=9; //to break from inner while
+	    				choice=10; //to break from inner while
 	    				break;
+	    			
 	    			default:
 	    				System.out.println("Invalid Entry, please select another choice\n");
 	    				break;
@@ -97,4 +103,5 @@ import java.util.Scanner;
 		}
 	}
 }
+
 
